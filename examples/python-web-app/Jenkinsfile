@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+       stage('SCM checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/nikhilvarmaa/Docker-Zero-to-Hero.git'
+                sh 'pwd && ls '
+            }
+        }
+        
+       stage('build') {
+            steps {
+               dir('/var/lib/jenkins/workspace/Docker/Docker-Zero-to-Hero/examples/python-web-app') {
+                   sh 'pwd && ls'
+                   sh 'docker build -t python2 .'
+                   sh 'docker images'
+              }
+           }
+        }
+    }
+}
+
